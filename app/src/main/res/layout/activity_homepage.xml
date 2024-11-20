@@ -54,9 +54,12 @@
         android:id="@+id/ivShoes"
         android:layout_width="234dp"
         android:layout_height="193dp"
-        app:srcCompat="@drawable/ic_shoes"
-        tools:layout_editor_absoluteX="88dp"
-        tools:layout_editor_absoluteY="489dp" />
+        android:layout_marginBottom="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_shoes" />
 
     <ImageView
         android:id="@+id/ivBottom"
