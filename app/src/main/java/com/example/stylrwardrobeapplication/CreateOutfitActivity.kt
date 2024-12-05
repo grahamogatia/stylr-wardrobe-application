@@ -51,8 +51,15 @@ class CreateOutfitActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+                R.id.wardrobe-> {
+                    // Navigate to SettingsActivity
+                    val intent = Intent(this, WardrobeActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
                 else -> false
             }
+
         }
     }
 }

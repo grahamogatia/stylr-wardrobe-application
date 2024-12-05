@@ -36,6 +36,9 @@ class ProfileActivity : AppCompatActivity() {
             R.drawable.ic_bottoms, R.drawable.ic_wardrobe, R.drawable.schedule_picture
         )
 
+        // Set up RecyclerView with GridLayoutManager
+        binding.rvPhotos.layoutManager = GridLayoutManager(this, 3) // 3 columns
+        binding.rvPhotos.adapter = PhotoAdapter(photos)
 
         binding.bottomNavMenu.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -52,9 +55,16 @@ class ProfileActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+                R.id.wardrobe-> {
+                    // Navigate to SettingsActivity
+                    val intent = Intent(this, WardrobeActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
 
                 else -> false
             }
+
         }
     }
 }

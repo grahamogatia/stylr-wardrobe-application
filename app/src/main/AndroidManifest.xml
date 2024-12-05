@@ -37,7 +37,8 @@
 
         <activity android:name=".CreateOutfitActivity"
             android:exported="true" />
-
+        <activity android:name=".WardrobeActivity"
+            android:exported="true" />
     </application>
 
 
