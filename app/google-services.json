@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "425803228431",
+    "project_id": "stylr-wardrobe-app",
+    "storage_bucket": "stylr-wardrobe-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425803228431:android:568fb7edb82704f8288a7a",
+        "android_client_info": {
+          "package_name": "com.example.stylrwardrobeapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnezdAd59KXeTA1EzI5WK4meZ46nUkNP8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
