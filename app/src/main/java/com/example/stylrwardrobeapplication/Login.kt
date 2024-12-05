@@ -13,6 +13,7 @@ import com.example.stylrwardrobeapplication.databinding.ActivityLoginBinding
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 
+
 class Login : AppCompatActivity() {
 
     private lateinit var viewBinding: ActivityLoginBinding

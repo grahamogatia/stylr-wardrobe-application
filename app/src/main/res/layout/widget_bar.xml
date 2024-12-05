@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/imageButton7"
+            android:id="@+id/homeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -27,7 +27,7 @@
             app:srcCompat="@drawable/ic_home" />
 
         <ImageButton
-            android:id="@+id/imageButton17"
+            android:id="@+id/scheduleButton"
             android:layout_width="72dp"
             android:layout_height="54dp"
             android:layout_weight="1"
@@ -35,7 +35,7 @@
             app:srcCompat="@drawable/ic_calendar" />
 
         <ImageButton
-            android:id="@+id/imageButton10"
+            android:id="@+id/addButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -43,7 +43,7 @@
             app:srcCompat="@drawable/ic_add" />
 
         <ImageButton
-            android:id="@+id/imageButton11"
+            android:id="@+id/wardrobeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -51,7 +51,7 @@
             app:srcCompat="@drawable/ic_wardrobe" />
 
         <ImageButton
-            android:id="@+id/imageButton12"
+            android:id="@+id/settingsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
