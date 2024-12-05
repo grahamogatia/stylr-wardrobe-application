@@ -1,7 +1,9 @@
 package com.example.stylrwardrobeapplication
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -15,6 +17,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.firestore
 
 class Signup : AppCompatActivity() {
 
@@ -28,6 +31,9 @@ class Signup : AppCompatActivity() {
 
     private lateinit var progressBar: ProgressBar
     private lateinit var btnSignup: Button
+
+    //private lateinit var dbHelper: UserDatabaseHelper
+    private var db = Firebase.firestore
 
     public override fun onStart() {
         super.onStart()
@@ -44,6 +50,7 @@ class Signup : AppCompatActivity() {
 
         viewBinding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
         auth = Firebase.auth
 
         editTextUsername = viewBinding.usernameSignup
@@ -83,6 +90,13 @@ class Signup : AppCompatActivity() {
                             "Account created.",
                             Toast.LENGTH_SHORT,
                         ).show()
+
+                        val userMap = hashMapOf(
+                            "username" to username,
+                            "email" to email,
+                            "password" to password)
+                        addToFirestore(userMap)
+
                     } else {
                         // If sign in fails, display a message to the user.
                         Toast.makeText(
@@ -93,5 +107,13 @@ class Signup : AppCompatActivity() {
                     }
                 }
         }
+    }
+
+    fun addToFirestore(userMap: HashMap<String, String>) {
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+
+        db.collection("users").document(userId).set(userMap)
+            .addOnSuccessListener { Toast.makeText(this, "Successfully Added to Firestore!", Toast.LENGTH_SHORT).show() }
+            .addOnFailureListener { Toast.makeText(this, "Failed (Firestore)!", Toast.LENGTH_SHORT).show() }
     }
 }

@@ -57,12 +57,17 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.stylrwardrobeapplication.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewBinding: ActivityMainBinding
+
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
+    private lateinit var db: FirebaseFirestore
+
     private lateinit var textView: TextView
     private lateinit var btnLogout: Button
 
@@ -80,6 +85,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
         btnLogout = viewBinding.btnLogout
         textView = viewBinding.userDetails
         user = auth.currentUser!!
@@ -89,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         } else {
-            textView.text = "User: ${user.email}"
+            fetchUserData(user.uid)
         }
 
         btnLogout.setOnClickListener {
@@ -99,6 +105,25 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    private fun fetchUserData(uid: String) {
+        val userRef = db.collection("users").document(uid)
+
+        userRef.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val document: DocumentSnapshot = task.result!!
+                if (document.exists()) {
+                    // Assuming you have a field 'username' in your Firestore document
+                    val username = document.getString("username")
+                    textView.text = "User: $username"
+                } else {
+                    textView.text = "No user data found."
+                }
+            } else {
+                textView.text = "Error fetching user data: ${task.exception?.message}"
+            }
+        }
     }
 }
 */
