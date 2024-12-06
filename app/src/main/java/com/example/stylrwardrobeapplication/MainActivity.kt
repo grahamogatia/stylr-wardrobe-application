@@ -62,6 +62,13 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+                R.id.settings -> {
+                    auth.signOut() // Sign out the user
+                    val intent = Intent(this, Login::class.java) // Navigate to Login activity
+                    startActivity(intent)
+                    finish() // Close the current activity
+                    true
+                }
                 else -> false
             }
         }
