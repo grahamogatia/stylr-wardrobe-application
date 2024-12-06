@@ -84,14 +84,9 @@
                 android:hint="@string/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="25sp"/>
+                android:textSize="25sp"
+                android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
 
         <Button
             android:id="@+id/btnLogin"
@@ -102,6 +97,13 @@
             android:text="@string/login"
             android:textColor="@color/black"
             android:textSize="25sp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

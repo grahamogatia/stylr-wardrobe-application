@@ -76,7 +76,8 @@
             android:hint="@string/password"
             android:textSize="25sp"
             tools:layout_editor_absoluteX="40dp"
-            tools:layout_editor_absoluteY="202dp" />
+            tools:layout_editor_absoluteY="202dp"
+            android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -94,7 +95,8 @@
             android:hint="Confirm Password"
             android:textSize="25sp"
             tools:layout_editor_absoluteX="40dp"
-            tools:layout_editor_absoluteY="202dp" />
+            tools:layout_editor_absoluteY="202dp"
+            android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
