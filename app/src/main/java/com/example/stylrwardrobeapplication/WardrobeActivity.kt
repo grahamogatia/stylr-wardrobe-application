@@ -22,6 +22,7 @@ class WardrobeActivity : AppCompatActivity() {
         // Set up button click listeners
         setupButtonListeners()
         setupRecyclerView()
+
     }
 
     private fun setupButtonListeners() {

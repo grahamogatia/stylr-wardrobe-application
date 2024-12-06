@@ -49,7 +49,7 @@ class CreateOutfitActivity : AppCompatActivity() {
 
     private fun setupCategorySpinner() {
         categorySpinner = binding.categorySpinner
-        val categories = listOf("Top", "Bottom", "Shoes")
+        val categories = listOf("Top", "Bottom", "Shoes", "OOTD")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         categorySpinner.adapter = adapter
