@@ -12,9 +12,13 @@ import com.google.firebase.firestore.FirebaseFirestore
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
+    private lateinit var auth: FirebaseAuth
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        auth = FirebaseAuth.getInstance()
 
         // Inflate the layout using View Binding
         binding = ActivityProfileBinding.inflate(layoutInflater)
@@ -46,6 +50,13 @@ class ProfileActivity : AppCompatActivity() {
                     // Navigate to SettingsActivity
                     val intent = Intent(this, WardrobeActivity::class.java)
                     startActivity(intent)
+                    true
+                }
+                R.id.settings -> {
+                    auth.signOut() // Sign out the user
+                    val intent = Intent(this, Login::class.java) // Navigate to Login activity
+                    startActivity(intent)
+                    finish() // Close the current activity
                     true
                 }
 

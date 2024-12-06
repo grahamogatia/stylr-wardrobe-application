@@ -28,10 +28,13 @@ class WardrobeActivity : AppCompatActivity() {
     private lateinit var adapter: WardrobeAdapter
 
     private var imageList = mutableListOf<String>()
+    private lateinit var auth: FirebaseAuth
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
 
         binding = ActivityWardrobeBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -69,6 +72,13 @@ class WardrobeActivity : AppCompatActivity() {
                     // Navigate to SettingsActivity
                     val intent = Intent(this, WardrobeActivity::class.java)
                     startActivity(intent)
+                    true
+                }
+                R.id.settings -> {
+                    auth.signOut() // Sign out the user
+                    val intent = Intent(this, Login::class.java) // Navigate to Login activity
+                    startActivity(intent)
+                    finish() // Close the current activity
                     true
                 }
                 else -> false

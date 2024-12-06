@@ -113,7 +113,11 @@ class Signup : AppCompatActivity() {
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
         db.collection("users").document(userId).set(userMap)
-            .addOnSuccessListener { Toast.makeText(this, "Successfully Added to Firestore!", Toast.LENGTH_SHORT).show() }
+            .addOnSuccessListener {
+                Toast.makeText(this, "Successfully Added to Firestore!", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
             .addOnFailureListener { Toast.makeText(this, "Failed (Firestore)!", Toast.LENGTH_SHORT).show() }
     }
 }
