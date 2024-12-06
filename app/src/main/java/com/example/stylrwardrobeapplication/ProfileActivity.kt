@@ -40,6 +40,10 @@ class ProfileActivity : AppCompatActivity() {
         binding.rvPhotos.layoutManager = GridLayoutManager(this, 3) // 3 columns
         binding.rvPhotos.adapter = PhotoAdapter(photos)
 
+        setupButtonListeners()
+    }
+
+    private fun setupButtonListeners() {
         binding.bottomNavMenu.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.add -> {
@@ -61,10 +65,8 @@ class ProfileActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
-
                 else -> false
             }
-
         }
     }
 }

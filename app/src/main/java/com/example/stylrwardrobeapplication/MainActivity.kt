@@ -40,7 +40,10 @@ class MainActivity : AppCompatActivity() {
             fetchUserData(user.uid)
         }
 
+        setupButtonListeners()
+    }
 
+    private fun setupButtonListeners() {
         // Handle BottomNavigationView item clicks
         binding.bottomNavMenu.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -72,6 +75,7 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
     }
 
     private fun fetchUserData(uid: String) {

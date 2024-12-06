@@ -16,15 +16,15 @@ class WardrobeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Bind the layout to the activity
         binding = ActivityWardrobeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Set up button click listeners
         setupButtonListeners()
-
-        // Set up RecyclerView
         setupRecyclerView()
+    }
+
+    private fun setupButtonListeners() {
         binding.bottomNavMenu.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
@@ -54,9 +54,7 @@ class WardrobeActivity : AppCompatActivity() {
                 else -> false
             }
         }
-    }
 
-    private fun setupButtonListeners() {
         binding.btnOutfit.setOnClickListener {
             Toast.makeText(this, "Outfit button clicked!", Toast.LENGTH_SHORT).show()
             // Add navigation or action logic here
