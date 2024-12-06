@@ -60,11 +60,27 @@
         app:layout_constraintTop_toBottomOf="@+id/ivClothesPreview" />
 
     <Button
+        android:id="@+id/btnCamera"
+        android:layout_width="273dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#FFEB3B"
+        android:padding="5dp"
+        android:text="@string/camera"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnUpload"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category_spinner" />
+
+    <Button
         android:id="@+id/btnUpload"
         android:layout_width="273dp"
         android:layout_height="56dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="47dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="#FFEB3B"
         android:padding="5dp"
         android:text="@string/upload"
@@ -72,8 +88,7 @@
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav_menu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/category_spinner" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar"
