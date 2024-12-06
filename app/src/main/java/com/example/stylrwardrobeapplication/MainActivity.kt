@@ -2,6 +2,7 @@ package com.example.stylrwardrobeapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -15,11 +16,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomepageBinding
     private lateinit var auth: FirebaseAuth
-    private lateinit var user: FirebaseUser
+    private var user: FirebaseUser? = null
     private lateinit var db: FirebaseFirestore
 
     private lateinit var tvUsername: TextView
-    private lateinit var btnLogout: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,15 +30,19 @@ class MainActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
-        user = auth.currentUser!!
+
+        user = auth.currentUser
 
         if (user == null) {
+            Log.d("AuthDebug", "No user is currently logged in. Redirecting to Login.")
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
             finish()
         } else {
-            fetchUserData(user.uid)
+            Log.d("AuthDebug", "User is logged in with UID: ${user!!.uid}")
+            fetchUserData(user!!.uid)
         }
+
 
         setupButtonListeners()
     }
