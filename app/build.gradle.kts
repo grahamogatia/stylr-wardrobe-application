@@ -27,6 +27,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -53,7 +54,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
+    implementation ("com.facebook.android:facebook-share:latest.release")
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
     implementation ("com.google.android.material:material:1.9.0")
     // When using the BoM, you don't specify versions in Firebase library dependencies

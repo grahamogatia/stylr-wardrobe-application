@@ -2,7 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Queries for Facebook SDK -->
+    <queries>
+        <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -14,33 +20,71 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.Light"
         tools:targetApi="31">
-        <activity
-            android:name=".Signup"
-            android:exported="false"
-            android:theme="@style/Theme.Material3.Light.NoActionBar" />
+
+        <!-- Login Activity -->
         <activity
             android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Signup Activity -->
+        <activity
+            android:name=".Signup"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Light.NoActionBar" />
+
+        <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Material3.Light.NoActionBar" />
 
-        <activity android:name=".ProfileActivity"
-        android:exported="true" />
+        <!-- Profile Activity -->
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="true" />
 
-        <activity android:name=".CreateOutfitActivity"
+        <!-- Create Outfit Activity -->
+        <activity
+            android:name=".CreateOutfitActivity"
             android:exported="true" />
-        <activity android:name=".WardrobeActivity"
+
+        <!-- Wardrobe Activity -->
+        <activity
+            android:name=".WardrobeActivity"
             android:exported="true" />
+
+        <!-- Share Activity -->
+        <activity
+            android:name=".ShareActivity"
+            android:exported="true" />
+
+        <!-- Facebook SDK Metadata -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
+
+        <!-- Facebook Activity -->
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+
+        <!-- Facebook ContentProvider -->
+        <provider
+            android:authorities="com.facebook.app.FacebookContentProvider600142599252893"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true" />
+
+
+
     </application>
-
-
-
 </manifest>
