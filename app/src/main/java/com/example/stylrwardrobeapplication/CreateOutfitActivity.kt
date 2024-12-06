@@ -4,6 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.ProgressBar
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +24,9 @@ class CreateOutfitActivity : AppCompatActivity() {
 
     private lateinit var storageRef: StorageReference
     private lateinit var firebaseFirestore: FirebaseFirestore
+    private lateinit var progressBar: ProgressBar
+    private lateinit var categorySpinner: Spinner
+
     private var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,9 +37,26 @@ class CreateOutfitActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initVars()
+        setupCategorySpinner()
         registerClickEvents()
+    }
 
-        // Handle BottomNavigationView item clicks
+    private fun initVars() {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        storageRef = FirebaseStorage.getInstance().reference.child("users/$userId/Images")
+        firebaseFirestore = FirebaseFirestore.getInstance()
+    }
+
+    private fun setupCategorySpinner() {
+        categorySpinner = binding.categorySpinner
+        val categories = listOf("Top", "Bottom", "Shoes")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        categorySpinner.adapter = adapter
+    }
+
+    private fun registerClickEvents() {
+        // Bottom navigation menu
         binding.bottomNavMenu.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.profile -> {
@@ -56,13 +80,13 @@ class CreateOutfitActivity : AppCompatActivity() {
                 else -> false
             }
         }
-    }
 
-    private fun registerClickEvents() {
+        // Uploading clothes
+        progressBar = binding.progressBar
+
         binding.btnUpload.setOnClickListener {
             uploadImage()
         }
-
         binding.ivClothesPreview.setOnClickListener {
             resultLauncher.launch("image/*")
         }
@@ -75,14 +99,12 @@ class CreateOutfitActivity : AppCompatActivity() {
         binding.ivClothesPreview.setImageURI(it)
     }
 
-    private fun initVars() {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        storageRef = FirebaseStorage.getInstance().reference.child("users/$userId/Images")
-        firebaseFirestore = FirebaseFirestore.getInstance()
-    }
-
     private fun uploadImage() {
+
+        progressBar.visibility = View.VISIBLE
+
         if (imageUri == null) {
+            progressBar.visibility = View.GONE
             Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show()
             return
         }
@@ -97,12 +119,15 @@ class CreateOutfitActivity : AppCompatActivity() {
 
         uploadTask.addOnSuccessListener {
             // Get the download URL
+            progressBar.visibility = View.GONE
+
             fileRef.downloadUrl.addOnSuccessListener { uri ->
                 saveImageDetailsToFirestore(uri.toString(), fileName)
             }.addOnFailureListener {
                 Toast.makeText(this, "Failed to get download URL: ${it.message}", Toast.LENGTH_SHORT).show()
             }
         }.addOnFailureListener {
+            progressBar.visibility = View.GONE
             val fileSize = imageUri?.let { contentResolver.openInputStream(it)?.available() }
             Log.d("FileDetails", "File size: $fileSize bytes")
             Log.d("FirebaseStorage", "Uploading to path: ${fileRef.path}")
@@ -112,10 +137,12 @@ class CreateOutfitActivity : AppCompatActivity() {
 
     private fun saveImageDetailsToFirestore(imageUrl: String, fileName: String) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val clotheType = categorySpinner.selectedItem.toString()
         val imageDetails = hashMapOf(
             "imageUrl" to imageUrl,
             "fileName" to fileName,
-            "timestamp" to System.currentTimeMillis()
+            "timestamp" to System.currentTimeMillis(),
+            "clotheType" to clotheType
         )
 
         firebaseFirestore.collection("users").document(userId).collection("outfits")
