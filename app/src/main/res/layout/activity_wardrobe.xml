@@ -17,16 +17,16 @@
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:itemIconSize="48dp"
+        app:itemIconTint="@color/black"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        app:labelVisibilityMode="unlabeled"
-        android:id="@+id/bottom_nav_menu"
-        app:itemIconSize="48dp"
-        app:itemIconTint="@color/black" />
+        app:menu="@menu/bottom_nav_menu" />
 
     <TextView
         android:id="@+id/tvWardrobe"
@@ -45,22 +45,22 @@
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="48dp"
         android:layout_marginBottom="32dp"
+        android:background="@color/white"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintTop_toBottomOf="@+id/tvWardrobe"
-        tools:layout_editor_absoluteX="0dp"
-        android:background="@color/white">
+        tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/white"
             android:gravity="center"
-            android:orientation="vertical"
-            android:background="@color/white">
+            android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/btnOutfit"
@@ -76,43 +76,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="Outfit"
+                android:background="@color/white"
                 android:fontFamily="sans-serif-medium"
-                android:textColor="@color/black"
-                android:textSize="16sp"
+                android:gravity="center"
                 android:padding="5dp"
-                android:background="@color/white"/>
+                android:text="Outfit"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/white"
             android:gravity="center"
-            android:orientation="vertical"
-            android:background="@color/white">
+            android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/btnTop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_shirt"
                 android:background="@drawable/roundcorner"
-                android:padding="10dp"/>
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_shirt" />
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="Tops"
                 android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Tops"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:padding="5dp"/>
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -120,29 +120,29 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/white"
             android:gravity="center"
-            android:orientation="vertical"
-            android:background="@color/white">
+            android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/imageButton15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:foregroundGravity="center"
-                app:srcCompat="@drawable/ic_pants"
                 android:background="@drawable/roundcorner"
-                android:padding="10dp"/>
+                android:foregroundGravity="center"
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_pants" />
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Bottoms"
                 android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Bottoms"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:padding="5dp"/>
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -150,38 +150,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/white"
             android:gravity="center"
-            android:orientation="vertical"
-            android:background="@color/white">
+            android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/imageButton16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_shoes2"
                 android:background="@drawable/roundcorner"
-                android:padding="10dp"/>
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_shoes2" />
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Shoes"
                 android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Shoes"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:padding="5dp"/>
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="712dp"
-        android:layout_height="226dp"
+        android:layout_width="357dp"
+        android:layout_height="347dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="19dp"
         android:layout_marginEnd="48dp"
+        android:layout_marginBottom="11dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
