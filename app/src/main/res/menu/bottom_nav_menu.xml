@@ -17,7 +17,7 @@
         android:title="Wardrobe" />
     <item
         android:id="@+id/settings"
-        android:icon="@drawable/settingsbutton"
+        android:icon="@drawable/logout"
         android:title="Settings" />
 
 </menu>

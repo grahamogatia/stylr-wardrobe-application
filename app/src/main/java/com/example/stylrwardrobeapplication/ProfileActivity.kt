@@ -25,8 +25,23 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Set Profile Details
-        binding.tvName.text = "Graham Ogatia"
-        binding.tvUsername.text = "@grhmxoxo"
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId != null) {
+            val db = FirebaseFirestore.getInstance()
+            db.collection("users").document(userId)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        val username = document.getString("username") ?: "No username available"
+                        binding.tvName.text = username
+                    } else {
+                        Log.e("ProfileActivity", "User document not found")
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.e("ProfileActivity", "Error fetching username: ", exception)
+                }
+        }
 
         // Set up RecyclerView
 
@@ -68,46 +83,38 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         val db = FirebaseFirestore.getInstance()
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
-        if (userId == null) {
-            Log.e("ProfileActivity", "User not logged in!")
-            return
-        }
-
-        // Fetch "outfits" collection for the logged-in user
         db.collection("users").document(userId).collection("OOTD")
             .get()
             .addOnSuccessListener { querySnapshot ->
-                val photoUrls = mutableListOf<String>()
+                val photoList = mutableListOf<Pair<String, String>>()
 
                 for (document in querySnapshot.documents) {
-                    val photoUrl = document.getString("imageUrl") // Match Firestore field name
-                    if (photoUrl != null) {
-                        photoUrls.add(photoUrl)
-                    }
+                    val ootdId = document.id
+                    val imageUrl = document.getString("imageUrl") ?: continue
+                    photoList.add(Pair(ootdId, imageUrl))
                 }
 
-                if (photoUrls.isEmpty()) {
-                    Log.w("ProfileActivity", "No photos found in the user's outfits collection.")
-                }
-
-                // Set up RecyclerView
                 val layoutManager = GridLayoutManager(this, 3) // 3 columns
                 binding.rvPhotos.layoutManager = layoutManager
 
-                val adapter = PhotoAdapter(photoUrls)
+                // Initialize adapter with the click listener
+                val adapter = PhotoAdapter(photoList) { ootdId, photoUrl ->
+                    // Handle the click here
+                    val intent = Intent(this, PhotoDetailActivity::class.java)
+                    intent.putExtra("ootdId", ootdId)
+                    intent.putExtra("photoUrl", photoUrl)
+                    startActivity(intent)
+                }
                 binding.rvPhotos.adapter = adapter
-
-                Log.d("ProfileActivity", "Photos loaded successfully: ${photoUrls.size} items.")
             }
             .addOnFailureListener { exception ->
                 Log.e("ProfileActivity", "Error fetching photos: ", exception)
-
             }
     }
 
-    }
 
+}
 
 

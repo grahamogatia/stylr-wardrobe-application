@@ -48,7 +48,7 @@
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginTop="-220dp"
-        android:src="@drawable/create_outfit_background"
+        android:src="@drawable/avatar"
         app:civ_border_color="@android:color/white"
         app:civ_border_width="4dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,19 +70,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Username Text -->
-    <TextView
-        android:id="@+id/tvUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="sans-serif-light"
-        android:text="@string/sample_username"
-        android:textColor="#555555"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/tvName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- RecyclerView for Photos -->
     <androidx.recyclerview.widget.RecyclerView

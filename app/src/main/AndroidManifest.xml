@@ -94,5 +94,11 @@
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true" />
 
+
+        <activity android:name=".PostsActivity"
+            android:exported="true" />
+        <activity android:name=".PhotoDetailActivity" android:exported="true" />
+
+
     </application>
 </manifest>
