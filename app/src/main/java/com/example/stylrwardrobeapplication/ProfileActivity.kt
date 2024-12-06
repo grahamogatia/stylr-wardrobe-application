@@ -2,9 +2,12 @@ package com.example.stylrwardrobeapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.stylrwardrobeapplication.databinding.ActivityProfileBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -22,28 +25,7 @@ class ProfileActivity : AppCompatActivity() {
         binding.tvUsername.text = "@grhmxoxo"
 
         // Set up RecyclerView
-        setupRecyclerView()
-    }
 
-    private fun setupRecyclerView() {
-        // Example: Setting up a GridLayoutManager
-        val layoutManager = GridLayoutManager(this, 3) // 3 columns for grid
-        binding.rvPhotos.layoutManager = layoutManager
-
-        // Example: Adding a placeholder adapter (replace with actual data)
-        val photos = listOf(
-            R.drawable.ic_shirt, R.drawable.ic_top, R.drawable.ic_shoes,
-            R.drawable.ic_bottoms, R.drawable.ic_wardrobe, R.drawable.schedule_picture
-        )
-
-        // Set up RecyclerView with GridLayoutManager
-        binding.rvPhotos.layoutManager = GridLayoutManager(this, 3) // 3 columns
-        binding.rvPhotos.adapter = PhotoAdapter(photos)
-
-        setupButtonListeners()
-    }
-
-    private fun setupButtonListeners() {
         binding.bottomNavMenu.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.add -> {
@@ -59,16 +41,62 @@ class ProfileActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
-                R.id.wardrobe-> {
+
+                R.id.wardrobe -> {
                     // Navigate to SettingsActivity
                     val intent = Intent(this, WardrobeActivity::class.java)
                     startActivity(intent)
                     true
                 }
+
                 else -> false
             }
         }
+        setupRecyclerView()
     }
-}
+
+    private fun setupRecyclerView() {
+        val db = FirebaseFirestore.getInstance()
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+        if (userId == null) {
+            Log.e("ProfileActivity", "User not logged in!")
+            return
+        }
+
+        // Fetch "outfits" collection for the logged-in user
+        db.collection("users").document(userId).collection("OOTD")
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val photoUrls = mutableListOf<String>()
+
+                for (document in querySnapshot.documents) {
+                    val photoUrl = document.getString("imageUrl") // Match Firestore field name
+                    if (photoUrl != null) {
+                        photoUrls.add(photoUrl)
+                    }
+                }
+
+                if (photoUrls.isEmpty()) {
+                    Log.w("ProfileActivity", "No photos found in the user's outfits collection.")
+                }
+
+                // Set up RecyclerView
+                val layoutManager = GridLayoutManager(this, 3) // 3 columns
+                binding.rvPhotos.layoutManager = layoutManager
+
+                val adapter = PhotoAdapter(photoUrls)
+                binding.rvPhotos.adapter = adapter
+
+                Log.d("ProfileActivity", "Photos loaded successfully: ${photoUrls.size} items.")
+            }
+            .addOnFailureListener { exception ->
+                Log.e("ProfileActivity", "Error fetching photos: ", exception)
+
+            }
+    }
+
+    }
+
 
 

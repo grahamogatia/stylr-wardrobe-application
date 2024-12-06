@@ -1,5 +1,4 @@
 
-
 package com.example.stylrwardrobeapplication
 
 import android.view.LayoutInflater
@@ -7,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.stylrwardrobeapplication.R
 
-class PhotoAdapter(private val photoList: List<Int>) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+class PhotoAdapter(private val photoUrls: List<String>) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
-    // ViewHolder to hold each photo item
     class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.ivPhoto)
     }
@@ -21,10 +21,14 @@ class PhotoAdapter(private val photoList: List<Int>) : RecyclerView.Adapter<Phot
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        holder.imageView.setImageResource(photoList[position]) // Bind the photo to the ImageView
+        Glide.with(holder.itemView.context)
+            .load(photoUrls[position])
+            .centerCrop()
+            .into(holder.imageView)
     }
 
     override fun getItemCount(): Int {
-        return photoList.size
+        return photoUrls.size
     }
 }
+
