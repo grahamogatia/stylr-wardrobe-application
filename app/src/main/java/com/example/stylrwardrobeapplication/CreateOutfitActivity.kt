@@ -155,9 +155,10 @@ class CreateOutfitActivity : AppCompatActivity() {
             "clotheType" to clotheType
         )
 
-        firebaseFirestore.collection("users").document(userId).collection("outfits")
+        firebaseFirestore.collection("users").document(userId).collection(clotheType)
             .add(imageDetails)
             .addOnSuccessListener {
+                Log.d("Firestore", "DocumentSnapshot added with ID: ${it.id}")
                 Toast.makeText(this, "Image metadata saved to Firestore!", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
